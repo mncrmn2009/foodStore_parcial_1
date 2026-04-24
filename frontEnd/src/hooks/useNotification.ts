@@ -1,4 +1,3 @@
-// src/hooks/useNotification.ts
 import { useState } from "react";
 
 export const useNotification = (tiempoVisible: number = 3000) => {
@@ -6,7 +5,7 @@ export const useNotification = (tiempoVisible: number = 3000) => {
   const [mensajeError, setMensajeError] = useState<string | null>(null);
 
   const mostrarExito = (mensaje: string) => {
-    setMensajeError(null); // Limpiamos errores previos
+    setMensajeError(null);
     setMensajeExito(mensaje);
     setTimeout(() => {
       setMensajeExito(null);
@@ -14,7 +13,7 @@ export const useNotification = (tiempoVisible: number = 3000) => {
   };
 
   const mostrarError = (mensaje: string) => {
-    setMensajeExito(null); // Limpiamos éxitos previos
+    setMensajeExito(null);
     setMensajeError(mensaje);
     setTimeout(() => {
       setMensajeError(null);

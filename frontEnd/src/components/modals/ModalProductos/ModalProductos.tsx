@@ -1,4 +1,3 @@
-// src/components/modals/ModalProductos/ModalProductos.tsx
 import { useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createProduct, updateProduct } from "../../../api/product.service";

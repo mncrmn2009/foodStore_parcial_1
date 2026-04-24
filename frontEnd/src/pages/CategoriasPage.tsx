@@ -44,7 +44,7 @@ export const CategoriasPage = () => {
     },
   });
 
-  // Funciones para manejar la UI
+
   const handleOpenModal = (categoria?: ICategoria) => {
     setCategoriaToEdit(categoria);
     setIsModalOpen(true);
@@ -172,8 +172,7 @@ export const CategoriasPage = () => {
           No hay categorías registradas. ¡Crea la primera!
         </div>
       )}
-
-      {/* AQUÍ IRÁ EL MODAL: Lo comentamos por ahora para que no te dé error */}
+      
       <ModalCategories 
         isOpen={isModalOpen} 
         onClose={handleCloseModal} 

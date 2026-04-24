@@ -1,8 +1,6 @@
-// src/api/product.service.ts
 import type { IProduct, IProductCreate, IProductList } from "../types/IProduct";
 
-// Asegúrate de que la ruta coincida con tu backend (suele ser /productos en español)
-const BASE_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/productos`;
+const BASE_URL = `${import.meta.env.VITE_API_URL}/productos`;
 
 export const getProducts = async (offset = 0, limit = 20): Promise<IProductList> => {
   try {
@@ -79,7 +77,6 @@ export const deleteProduct = async (id: number): Promise<void> => {
     
     if (!response.ok) throw new Error("Error al eliminar el producto");
     
-    // No hacemos response.json() porque FastAPI devuelve un 204 No Content vacío
     return;
   } catch (error) {
     console.error(error);

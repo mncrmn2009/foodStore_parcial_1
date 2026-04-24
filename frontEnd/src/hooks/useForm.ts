@@ -1,4 +1,3 @@
-// src/hooks/useForm.ts
 import { useState, type ChangeEvent } from "react";
 
 export const useForm = <T extends Object>(initialState: T) => {
@@ -18,6 +17,6 @@ export const useForm = <T extends Object>(initialState: T) => {
   return {
     formState,
     handleChange,
-    setFormState, // <-- ¡NUEVO! Vital para poder editar
+    setFormState,
   };
 };

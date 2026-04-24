@@ -104,7 +104,6 @@ export const IngredientesPage = () => {
             </tbody>
           </table>
 
-          {/* --- CONTROLES DE PAGINACIÓN --- */}
           <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4">
             <span className="text-sm text-gray-600">
               Página <strong>{page + 1}</strong> de <strong>{totalPages || 1}</strong>
@@ -112,7 +111,6 @@ export const IngredientesPage = () => {
             </span>
             
             <div className="flex gap-2">
-              {/* Botón Anterior */}
               <button
                 onClick={() => setPage((old) => Math.max(old - 1, 0))}
                 disabled={page === 0 || isLoading}
@@ -120,8 +118,6 @@ export const IngredientesPage = () => {
               >
                 Anterior
               </button>
-              
-              {/* Botón Siguiente */}
               <button
                 onClick={() => {
                   if (page + 1 < totalPages) {

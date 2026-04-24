@@ -1,4 +1,3 @@
-# app/core/repository.py
 from typing import Generic, TypeVar, Type, Sequence
 from sqlmodel import Session, SQLModel, select
 
@@ -26,7 +25,7 @@ class BaseRepository(Generic[ModelT]):
     def add(self, instance: ModelT) -> ModelT:
         """Persiste una nueva entidad en la sesión actual."""
         self.session.add(instance)
-        self.session.flush()  # obtiene el ID sin hacer commit
+        self.session.flush()  # obtener el ID sin hacer un commit
         self.session.refresh(instance)
         return instance
 

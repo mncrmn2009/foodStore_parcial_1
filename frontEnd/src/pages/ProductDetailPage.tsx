@@ -1,22 +1,17 @@
-// src/pages/ProductDetailPage.tsx
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProductsById } from "../api/product.service";
 
 export const ProductDetailPage = () => {
-  // 1. Obtenemos el ID de la URL
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  // 2. Usamos TanStack Query en lugar de useEffect (¡Nivel profesional!)
   const { data: product, isLoading, isError } = useQuery({
     queryKey: ["producto", id],
-    // Convertimos el id a número porque nuestro backend espera un int
     queryFn: () => getProductsById(Number(id)), 
-    enabled: !!id, // Solo se ejecuta si hay un ID
+    enabled: !!id,
   });
 
-  // 3. Manejo de estados de carga
   if (isLoading) {
     return (
       <div className="w-full max-w-2xl mx-auto px-4 py-10 text-center text-gray-500">
@@ -41,7 +36,7 @@ export const ProductDetailPage = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-6">
-      {/* Encabezado */}
+      
       <div className="flex items-center gap-3 mb-6">
         <button
           onClick={() => navigate("/products")}
@@ -53,12 +48,11 @@ export const ProductDetailPage = () => {
         <h1 className="text-3xl font-bold text-gray-900">{product.nombre}</h1>
       </div>
 
-      {/* Card Principal */}
+      
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-6 py-6 flex flex-col gap-6">
         
-        {/* Etiquetas: Categorías e Ingredientes */}
+        
         <div className="flex flex-col gap-3">
-          {/* Categorías (Ahora es un arreglo, así que las mapeamos) */}
           {product.categorias && product.categorias.length > 0 && (
             <div className="flex flex-wrap gap-2 items-center">
               <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide mr-2">
@@ -75,7 +69,7 @@ export const ProductDetailPage = () => {
             </div>
           )}
 
-          {/* Ingredientes */}
+          
           {product.ingredientes && product.ingredientes.length > 0 && (
             <div className="flex flex-wrap gap-2 items-center">
               <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide mr-2">
@@ -95,7 +89,7 @@ export const ProductDetailPage = () => {
 
         <hr className="border-gray-100" />
 
-        {/* Descripción */}
+        
         <div className="flex flex-col gap-1">
           <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
             Descripción
@@ -105,7 +99,7 @@ export const ProductDetailPage = () => {
           </p>
         </div>
 
-        {/* Precio y Disponibilidad */}
+        
         <div className="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl">
           <div className="flex flex-col gap-1">
             <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">

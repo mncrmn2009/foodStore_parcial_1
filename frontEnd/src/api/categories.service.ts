@@ -1,15 +1,12 @@
-// src/api/categories.service.ts
 import type { ICategoria, ICategoriaCreate, ICategoriaList } from "../types/ICategorie";
 
-// Apuntamos a la variable de entorno o por defecto al localhost de FastAPI
-const BASE_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/categorias`;
+const BASE_URL = `${import.meta.env.VITE_API_URL}/categorias`;
 
 export const getCategorias = async (offset = 0, limit = 20): Promise<ICategoriaList> => {
   try {
     const response = await fetch(`${BASE_URL}/?offset=${offset}&limit=${limit}`);
     if (!response.ok) throw new Error("Error al obtener categorías");
     
-    // FastAPI devuelve { data: [...], total: X }
     const data: ICategoriaList = await response.json();
     return data;
   } catch (error) {
@@ -57,7 +54,7 @@ export const updateCategoria = async (
 ): Promise<ICategoria> => {
   try {
     const response = await fetch(`${BASE_URL}/${id}`, {
-      method: "PATCH", // Tu backend usa PATCH para actualizaciones
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(categoria),
     });
@@ -80,7 +77,6 @@ export const deleteCategoria = async (id: number): Promise<void> => {
     
     if (!response.ok) throw new Error("Error al eliminar la categoría");
     
-    // Como FastAPI devuelve 204 No Content en el delete, no hacemos .json()
     return; 
   } catch (error) {
     console.error(error);

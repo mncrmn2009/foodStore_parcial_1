@@ -1,4 +1,3 @@
-// src/components/modals/ModalCategories/ModalCategories.tsx
 import { useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCategoria, updateCategoria } from "../../../api/categories.service";
@@ -17,14 +16,11 @@ export const ModalCategories = ({ isOpen, onClose, categoriaToEdit }: ModalProps
   const queryClient = useQueryClient();
   const { mensajeExito, mensajeError, mostrarExito, mostrarError } = useNotification();
 
-  // 1. Usamos tu custom hook
   const { formState, handleChange, setFormState } = useForm<ICategoriaCreate>({
     nombre: "",
     descripcion: "",
   });
 
-
-  // 2. Efecto para rellenar el formulario si estamos editando [cite: 359]
   useEffect(() => {
     if (categoriaToEdit) {
       setFormState({
@@ -32,19 +28,17 @@ export const ModalCategories = ({ isOpen, onClose, categoriaToEdit }: ModalProps
         descripcion: categoriaToEdit.descripcion || "",
       });
     } else {
-      // Limpiamos si es una nueva categoría
       setFormState({ nombre: "", descripcion: "" });
     }
   }, [categoriaToEdit, setFormState, isOpen]);
 
-  // 3. Mutación para CREAR
   const createMutation = useMutation({
     mutationFn: (data: ICategoriaCreate) => createCategoria(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categorias"] }); // Invalidar caché 
+      queryClient.invalidateQueries({ queryKey: ["categorias"] });
       mostrarExito("Categoría creada correctamente");
       setTimeout(() => {
-        onClose(); // Cerramos el modal al terminar 
+        onClose();
       }, 500);
     },
     onError: () => {
@@ -52,14 +46,13 @@ export const ModalCategories = ({ isOpen, onClose, categoriaToEdit }: ModalProps
     },
   });
 
-  // 4. Mutación para ACTUALIZAR
   const updateMutation = useMutation({
     mutationFn: (data: ICategoriaCreate) => updateCategoria(categoriaToEdit!.id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categorias"] }); // Invalidar caché 
+      queryClient.invalidateQueries({ queryKey: ["categorias"] });
       mostrarExito("Categoría actualizada correctamente");
       setTimeout(() => {
-        onClose(); // Cerramos el modal al terminar
+        onClose(); 
       }, 500);
     },
     onError: () => {
@@ -67,7 +60,6 @@ export const ModalCategories = ({ isOpen, onClose, categoriaToEdit }: ModalProps
     },
   });
 
-  // Manejador del envío del formulario [cite: 357]
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (categoriaToEdit) {
@@ -76,8 +68,7 @@ export const ModalCategories = ({ isOpen, onClose, categoriaToEdit }: ModalProps
       createMutation.mutate(formState);
     }
   };
-
-  // Si el modal no está abierto, no renderizamos nada [cite: 357]
+  
   if (!isOpen) return null;
 
   const isPending = createMutation.isPending || updateMutation.isPending;
@@ -89,7 +80,7 @@ export const ModalCategories = ({ isOpen, onClose, categoriaToEdit }: ModalProps
         {/* Cabecera del Modal */}
         <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
           <h2 className="text-xl font-bold text-gray-800">
-            {categoriaToEdit ? "Editar Categoría" : "Añadir Categoría"} [cite: 372, 373, 395]
+            {categoriaToEdit ? "Editar Categoría" : "Añadir Categoría"}
           </h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 font-bold text-xl">
             &times;
@@ -101,7 +92,7 @@ export const ModalCategories = ({ isOpen, onClose, categoriaToEdit }: ModalProps
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Nombre de la categoría [cite: 398]
+                Nombre de la categoría
               </label>
               <input
                 type="text"
@@ -116,7 +107,7 @@ export const ModalCategories = ({ isOpen, onClose, categoriaToEdit }: ModalProps
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Descripción [cite: 404]
+                Descripción
               </label>
               <textarea
                 name="descripcion"
@@ -136,14 +127,14 @@ export const ModalCategories = ({ isOpen, onClose, categoriaToEdit }: ModalProps
               onClick={onClose}
               className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors"
             >
-              Cancelar [cite: 409]
+              Cancelar
             </button>
             <button
               type="submit"
               disabled={isPending}
               className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50"
             >
-              {isPending ? "Guardando..." : "Guardar"} [cite: 410]
+              {isPending ? "Guardando..." : "Guardar"}
             </button>
           </div>
         </form>

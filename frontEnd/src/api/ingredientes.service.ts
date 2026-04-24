@@ -1,8 +1,6 @@
-// src/api/ingredientes.service.ts
 import type { IIngrediente, IIngredienteCreate, IIngredienteList } from "../types/IIngrediente";
 
-// Apuntamos a la ruta de ingredientes en tu backend
-const BASE_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/ingredientes`;
+const BASE_URL = `${import.meta.env.VITE_API_URL}/ingredientes`;
 
 export const getIngredientes = async (offset = 0, limit = 20): Promise<IIngredienteList> => {
   try {
@@ -79,7 +77,6 @@ export const deleteIngrediente = async (id: number): Promise<void> => {
     
     if (!response.ok) throw new Error("Error al eliminar el ingrediente");
     
-    // Devolvemos void porque FastAPI responde con 204 No Content
     return;
   } catch (error) {
     console.error(error);
