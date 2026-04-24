@@ -8,7 +8,6 @@ export interface ICategoria {
   updated_at: string;
 }
 
-
 export interface ICategoriaCreate {
   nombre: string;
   descripcion?: string | null;

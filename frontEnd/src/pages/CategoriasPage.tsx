@@ -33,7 +33,7 @@ export const CategoriasPage = () => {
   const deleteMutation = useMutation({
     mutationFn: (id: number) => deleteCategoria(id),
     onSuccess: () => {
-      // ¡Acá está la invalidación que pide el parcial!
+      // invalida el cache para refrescar
       queryClient.invalidateQueries({ queryKey: ["categorias"] });
 
       setMensajeExito("Categoría eliminada correctamente");
