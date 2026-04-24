@@ -6,7 +6,7 @@ class Settings (BaseSettings):
     Configuracion desde la variable de entorno
     """
 
-    postgres_user: str = "postgres"
+    postgres_user: str =  "postgres"
     postgres_password: str = "1234"
     postgres_db: str = "foodstore_db"
     postgres_host: str = "localhost"

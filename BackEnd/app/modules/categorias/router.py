@@ -1,4 +1,3 @@
-# app/modules/categorias/router.py
 from fastapi import APIRouter, Depends, Query, status, Path
 from sqlmodel import Session
 from typing import Annotated
@@ -9,11 +8,9 @@ from app.modules.categorias.service import CategoriaService
 
 router = APIRouter()
 
-
 def get_categoria_service(session: Session = Depends(get_session)) -> CategoriaService:
     """Factory de dependencia: inyecta el servicio con su Session."""
     return CategoriaService(session)
-
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
 
@@ -27,7 +24,7 @@ def create_categoria(
     data: CategoriaCreate,
     svc: CategoriaService = Depends(get_categoria_service),
 ) -> CategoriaPublic:
-    """Router delega al servicio — sin lógica de negocio aquí."""
+    """Router delega al servicio — sin lógica de negocio"""
     return svc.create(data)
 
 

@@ -26,9 +26,6 @@ class CategoriaPublic(SQLModel):
     nombre: str
     descripcion: Optional[str] = None
     imagen_url: Optional[str] = None
-    parent_id: Optional[int] = None
-    created_at: datetime
-    updated_at: datetime
 
 class CategoriaList(SQLModel):
     """Response model paginado para GET /categorias/"""
