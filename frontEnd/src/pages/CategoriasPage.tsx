@@ -169,7 +169,7 @@ export const CategoriasPage = () => {
 
       {categoriasData && categoriasData.data.length === 0 && (
         <div className="text-center py-10 text-gray-500">
-          No hay categorías registradas. ¡Crea la primera!
+          No hay categorías registradas.
         </div>
       )}
       

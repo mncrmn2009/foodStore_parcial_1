@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getIngredientes, deleteIngrediente } from "../api/ingredientes.service";
 import type { IIngrediente } from "../types/IIngrediente";
 import { ModalIngredientes } from "../components/modals/ModalIngredientes/ModalIngredientes";
+import { ConfirmDeleteModal } from "../components/modals/ConfirmDeleteModal";
 
 export const IngredientesPage = () => {
   const queryClient = useQueryClient();
@@ -13,6 +14,9 @@ export const IngredientesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [ingredienteToEdit, setIngredienteToEdit] = useState<IIngrediente | undefined>(undefined);
   const [mensajeExito, setMensajeExito] = useState<string | null>(null);
+  
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState<boolean>(false);
+  const [ingredienteIdToDelete, setIngredienteIdToDelete] = useState<number | null>(null);
 
   const { data: ingredientesData, isLoading, isError } = useQuery({
     queryKey: ["ingredientes", page],
@@ -46,8 +50,15 @@ export const IngredientesPage = () => {
   };
 
   const handleDelete = (id: number) => {
-    if (window.confirm("¿Seguro que deseas eliminar este ingrediente?")) {
-      deleteMutation.mutate(id);
+    setIngredienteIdToDelete(id);
+    setIsDeleteConfirmOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (ingredienteIdToDelete !== null) {
+      deleteMutation.mutate(ingredienteIdToDelete);
+      setIsDeleteConfirmOpen(false);
+      setIngredienteIdToDelete(null);
     }
   };
 
@@ -143,6 +154,15 @@ export const IngredientesPage = () => {
         isOpen={isModalOpen} 
         onClose={handleCloseModal} 
         ingredienteToEdit={ingredienteToEdit} 
+      />
+
+      <ConfirmDeleteModal 
+        isOpen={isDeleteConfirmOpen}
+        title="Eliminar Ingrediente"
+        message="¿Estás seguro de que deseas eliminar este ingrediente? Esta acción no se puede deshacer."
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setIsDeleteConfirmOpen(false)}
+        isLoading={deleteMutation.isPending}
       />
     </div>
   );

@@ -102,7 +102,7 @@ export const ProductosPage = () => {
                   <td className="py-3 px-4 text-sm text-gray-500">#{prod.id}</td>
                   <td className="py-3 px-4 text-sm font-medium text-gray-900">{prod.nombre}</td>
                   <td className="py-3 px-4 text-sm text-gray-700">${prod.precio}</td>
-                  <td className="py-3 px-4 text-sm font-bold text-gray-700">{prod.stock}u.</td>
+                  <td className="py-3 px-4 text-sm font-bold text-gray-700">{prod.stock} u.</td>
                   <td className="py-3 px-4 text-sm">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${prod.stock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                       {prod.stock > 0 ? 'Disponible' : 'Agotado'}
